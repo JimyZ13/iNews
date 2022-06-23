@@ -1,34 +1,31 @@
 package com.laioffer.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.laioffer.myapplication.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        TextView welcomeTextView = findViewById(R.id.welcomeTextView);
-        EditText nameEditText = findViewById(R.id.nameEditText);
-        EditText emailEditText = findViewById(R.id.emailEditText);
-        Button submitButton = findViewById(R.id.submitButton);
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        binding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String name = nameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                welcomeTextView.setText("Welcome " + name + ", your email is: " + email);
+            public void onClick(View view) {
+                String name = binding.nameEditText.getText().toString();
+                String email = binding.emailEditText.getText().toString();
+                binding.welcomeTextView.setText("Welcome " + name + ", your email is: " + email);
             }
         });
-
-
     }
 }
+
+
