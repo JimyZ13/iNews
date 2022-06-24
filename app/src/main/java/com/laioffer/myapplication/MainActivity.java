@@ -17,14 +17,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = binding.nameEditText.getText().toString();
-                String email = binding.emailEditText.getText().toString();
-                binding.welcomeTextView.setText("Welcome " + name + ", your email is: " + email);
-            }
-        });
     }
 }
 
