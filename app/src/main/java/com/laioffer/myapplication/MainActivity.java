@@ -1,6 +1,7 @@
 package com.laioffer.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.laioffer.myapplication.databinding.ActivityMainBinding;
+import com.laioffer.myapplication.model.NewsResponse;
+import com.laioffer.myapplication.network.NewsApi;
+import com.laioffer.myapplication.network.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +36,25 @@ public class MainActivity extends AppCompatActivity {
                NavigationUI.setupWithNavController(navView, navController);
                NavigationUI.setupActionBarWithNavController(this, navController);
 
+        NewsApi api = RetrofitClient.newInstance().create(NewsApi.class);
+        api.getTopHeadlines("US").enqueue(new Callback<NewsResponse>() {
+            @Override
+            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d("getTopHeadlines", response.body().toString());
+                } else {
+                    Log.d("getTopHeadlines", response.toString());
+                }
+            }
+            @Override
+            public void onFailure(Call<NewsResponse> call, Throwable t) {
+                Log.d("getTopHeadlines", t.toString());
+            }
+        });
+
     }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
